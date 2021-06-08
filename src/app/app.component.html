@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+
+  <form>
+    <input [(ngModel)]="searchKeyword" type="text" placeholder="Enter Search keyword..." 
+            name="searchKeyword" class="u-full-width" />
+    <p>Click on image to add it to the favourites.</p>
+    <button (click)="onSearch()" type="submit" class="button-primary">Search</button>
+  </form>
+  
+  <h5 *ngIf="noResults">No results</h5>
+
+  <img *ngIf="isLoading" src="../../res/loading.gif" 
+        id="center-image" class="loading-image" />
+  
+  <div class="result-images">
+    <img *ngFor="let imageUrl of imagesOnPage" src="{{ imageUrl }}" 
+          (click)="onAddToFavourites(imageUrl)" />
+  </div>
+
+  <form *ngIf="showButtons">
+    <button *ngIf="showBtnBack" (click)="onBtnBack()" type="button" 
+            id="back-btn" class="button">Back</button>
+
+    <button *ngIf="showBtnNext" (click)="onBtnNext()" type="button" 
+            id="next-btn" class="button">Next</button>
+  </form>
+
+  <div *ngIf="favouriteImages.length > 0" class="favourite-images">
+    <h1>Favourite images</h1>
+
+    <div class="result-images">
+      <img *ngFor="let imageUrl of favouriteImages" src="{{ imageUrl }}" 
+            (click)="onRemoveFromFavourites(imageUrl)" />
+    </div>
+  </div>
+</div>
